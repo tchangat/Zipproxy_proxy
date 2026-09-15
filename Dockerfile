@@ -1,12 +1,7 @@
-FROM alpine:latest
+FROM debian:slim
 
-# Install ziproxy only - no Xray needed
-RUN apk add --no-cache ziproxy bash
+RUN apt-get update && apt-get install -y ziproxy && rm -rf /var/lib/apt/lists/*
 
-# Create config directory
-RUN mkdir -p /etc/ziproxy
-
-# Write ziproxy config
 RUN cat > /etc/ziproxy/ziproxy.conf <<EOF
 Port = 8080
 Address = "0.0.0.0"
